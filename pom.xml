@@ -4,11 +4,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- Project from https://start.vaadin.com/project/ce76fe79-91df-4ff6-bd69-600838f624e3 -->
-    <groupId>com.example.application</groupId>
-    <artifactId>test</artifactId>
-    <name>test</name>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.github.yourusername</groupId>
+    <artifactId>vaadin-grid-component</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
+    <name>Vaadin Grid Component</name>
+    <description>A reusable Vaadin grid component for displaying item details</description>
+
+
+
 
     <properties>
         <java.version>21</java.version>
