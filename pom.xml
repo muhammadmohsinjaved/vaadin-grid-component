@@ -9,7 +9,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Vaadin Grid Component</name>
-    <description>A reusable Vaadin grid component for displaying item details</description>
+    <description>A reusable Vaadin grid component for displaying item details.</description>
 
 
 
