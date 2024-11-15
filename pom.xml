@@ -154,6 +154,10 @@
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin-maven-plugin</artifactId>
                         <version>${vaadin.version}</version>
+                         <configuration>
+                            <nodeVersion>v20.18.0</nodeVersion> <!-- Match the correct Node.js version -->
+                            <nodeDownload>false</nodeDownload> <!-- Prevents automatic download -->
+                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
