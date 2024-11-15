@@ -117,9 +117,9 @@
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
-                <version>${vaadin.version}</version>
+                <version>24.5.3</version>
                 <configuration>
-                    <nodeVersion>v20.18.0</nodeVersion> <!-- Match the correct Node.js version -->
+                    <nodeVersion>v20.17.0</nodeVersion> 
                     <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
                 </configuration>
                 <executions>
