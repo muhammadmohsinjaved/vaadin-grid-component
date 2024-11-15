@@ -142,6 +142,10 @@
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
                 <version>${vaadin.version}</version>
+                 <configuration>
+                    <nodeVersion>v16.0.0</nodeVersion> 
+                    <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
