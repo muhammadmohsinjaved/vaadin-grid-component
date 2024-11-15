@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- Project from https://start.vaadin.com/project/ce76fe79-91df-4ff6-bd69-600838f624e3 -->
+
     <groupId>com.github.muhammadmohsinjaved</groupId>
     <artifactId>vaadin-grid-component</artifactId>
     <version>1.0.0</version>
@@ -11,17 +11,12 @@
     <name>Vaadin Grid Component</name>
     <description>A reusable Vaadin grid component for displaying item details.</description>
 
-
-
-
     <properties>
         <java.version>17</java.version>
         <vaadin.version>24.5.3</vaadin.version>
-         <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-
-
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -37,10 +32,10 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-         <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencyManagement>
@@ -58,7 +53,6 @@
     <dependencies>
         <dependency>
             <groupId>com.vaadin</groupId>
-            <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
         </dependency>
         <dependency>
@@ -70,18 +64,15 @@
             <artifactId>line-awesome</artifactId>
             <version>2.0.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -121,29 +112,14 @@
                             <file>${project.basedir}/eclipse-formatter.xml</file>
                         </eclipse>
                     </java>
-                    <!-- Uncomment to format TypeScript files 
-                        <typescript>
-                        <includes>
-                            <include>src/main/frontend/**/*.ts</include>
-                            <include>src/main/frontend/**/*.tsx</include>
-                        </includes>
-                        <excludes>
-                            <exclude>src/main/frontend/generated/**</exclude>
-                        </excludes>
-                        <prettier>
-                            <prettierVersion>3.3.3</prettierVersion>
-                            <configFile>.prettierrc.json</configFile>
-                        </prettier>
-                    </typescript>
-                -->
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
                 <version>${vaadin.version}</version>
-                 <configuration>
-                    <nodeVersion>v16.0.0</nodeVersion> 
+                <configuration>
+                    <nodeVersion>v20.18.0</nodeVersion> <!-- Match the correct Node.js version -->
                     <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
                 </configuration>
                 <executions>
@@ -154,32 +130,13 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.10.0</version>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v20.18.0</nodeVersion>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <!-- Production mode is activated using -Pproduction -->
             <id>production</id>
             <dependencies>
-                <!-- Exclude development dependencies from production -->
                 <dependency>
                     <groupId>com.vaadin</groupId>
                     <artifactId>vaadin-core</artifactId>
@@ -209,52 +166,5 @@
                 </plugins>
             </build>
         </profile>
-
-        <profile>
-            <id>it</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>start-spring-boot</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop-spring-boot</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Runs the integration tests (*IT) after the server is started -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <trimStackTrace>false</trimStackTrace>
-                            <enableAssertions>true</enableAssertions>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
     </profiles>
 </project>
