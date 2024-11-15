@@ -120,7 +120,6 @@
                 <version>24.5.3</version>
                 <configuration>
                     <nodeVersion>v20.17.0</nodeVersion> 
-                    <nodeDownloadRoot>https://nodejs.org/dist/</nodeDownloadRoot>
                 </configuration>
                 <executions>
                     <execution>
