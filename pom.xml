@@ -7,6 +7,7 @@
     <groupId>com.github.muhammadmohsinjaved</groupId>
     <artifactId>vaadin-grid-component</artifactId>
     <version>1.0.0</version>
+    <tag>1.0.0</tag>
     <packaging>jar</packaging>
     <name>Vaadin Grid Component</name>
     <description>A reusable Vaadin grid component for displaying item details.</description>

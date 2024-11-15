@@ -1,77 +1,50 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 import '@vaadin/form-layout';
 import '@vaadin/grid';
 import '@vaadin/text-field';
 import { html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import type { GridActiveItemChangedEvent } from '@vaadin/grid';
 import { gridRowDetailsRenderer } from '@vaadin/grid/lit.js';
 import { applyTheme } from 'Frontend/generated/theme';
-import '@vaadin/grid/vaadin-grid-selection-column.js';
-import '@vaadin/grid/vaadin-grid-sort-column.js';
-
-
-
-interface ChildData {
-    oid: number;
-    source_of_pollution_urdu: string;
-    source_of_pollution_eng: string;
-    crop_acre: number;
-    is_multiple_crop_allowed: boolean;
-    crop_type_urdu: string;
-    crop_type_eng: string;
-}
-
-interface Crop {
-    id: number;
-    contamination_source: string;
-    contamination_crop_condition: string;
-    contamination_prevention: string;
-    contamination_control: string;
-    hive_oid: number;
-    child_data: ChildData[];
-}
-@customElement('grid-item-details')
-export class GridItemDetails extends LitElement {
-    protected override createRenderRoot() {
+let GridItemDetails = class GridItemDetails extends LitElement {
+    constructor() {
+        super(...arguments);
+        this.items = [];
+        this.detailsOpenedItem = [];
+    }
+    createRenderRoot() {
         const root = super.createRenderRoot();
         applyTheme(root);
         return root;
     }
-
-    @state()
-    private items: Crop[] = [];
-
-    @state()
-    private detailsOpenedItem: Crop[] = [];
-
-    @property({ type: String })
-    set data(jsonData: string) {
+    set data(jsonData) {
         try {
             const parsedData = JSON.parse(jsonData);
+            console.log('Parsed Data:', parsedData); // Debug log to see raw data
             if (Array.isArray(parsedData)) {
-                this.items = [...parsedData]; // Make a shallow copy to ensure reactivity
+                this.items = parsedData;
                 this.requestUpdate();
-            } else {
+                console.log('Data successfully set:', this.items); // Debug log after setting data
+            }
+            else {
                 console.error('Data format incorrect:', parsedData);
             }
-        } catch (e) {
+        }
+        catch (e) {
             console.error('Error parsing data:', e);
         }
     }
-
-    protected override render() {
-        return html`
+    render() {
+        return html `
             <style>
-                /* Ensure the vaadin-grid takes up 100% of the screen height */
-                :host {
-                    display: block;
+                vaadin-grid {
                     height: 100%;
                 }
-                .vaadin-grid {
-                    height: 100vh;  /* Full viewport height */
-                    width: 100%;    /* Full width */
-                }
-
                 .custom-table {
                     width: 100% !important;
                     border-collapse: collapse;
@@ -98,19 +71,18 @@ export class GridItemDetails extends LitElement {
             </style>
 
             <vaadin-grid
-                    style="height: 90vh;"
                     theme="row-stripes"
                     .items="${this.items}"
                     .detailsOpenedItems="${this.detailsOpenedItem}"
-                    @active-item-changed="${(event: GridActiveItemChangedEvent<Crop>) => {
-                        const crop = event.detail.value;
-                        this.detailsOpenedItem = crop ? [crop] : [];
-                        // Log all child data when a row is selected
-                        if (crop) {
-                            console.log('Child Data:', crop.child_data);
-                        }
-                    }}"
-                    ${gridRowDetailsRenderer<Crop>((crop) => html`
+                    @active-item-changed="${(event) => {
+            const crop = event.detail.value;
+            this.detailsOpenedItem = crop ? [crop] : [];
+            // Log all child data when a row is selected
+            if (crop) {
+                console.log('Child Data:', crop.child_data);
+            }
+        }}"
+                    ${gridRowDetailsRenderer((crop) => html `
                         <vaadin-form-layout .responsiveSteps="${[{ minWidth: '0', columns: 3 }]}">
                             <table class="custom-table">
                                 <thead>
@@ -124,7 +96,7 @@ export class GridItemDetails extends LitElement {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                ${crop.child_data.map(item => html`
+                                ${crop.child_data.map(item => html `
                                     <tr>
                                         <td>${item.source_of_pollution_eng}</td>
                                         <td>${item.crop_acre}</td>
@@ -139,29 +111,41 @@ export class GridItemDetails extends LitElement {
                         </vaadin-form-layout>
                     `, [])}
             >
-                <vaadin-grid-selection-column></vaadin-grid-selection-column>
-
-                <vaadin-grid-sort-column
+                <vaadin-grid-column
                         path="contamination_source"
                         header="Contamination Source"
-                ></vaadin-grid-sort-column>
-                <vaadin-grid-sort-column
+                ></vaadin-grid-column>
+                <vaadin-grid-column
                         path="contamination_crop_condition"
                         header="Condition"
-                ></vaadin-grid-sort-column>
-                <vaadin-grid-sort-column
+                ></vaadin-grid-column>
+                <vaadin-grid-column
                         path="contamination_prevention"
                         header="Prevention"
-                ></vaadin-grid-sort-column>
-                <vaadin-grid-sort-column
+                ></vaadin-grid-column>
+                <vaadin-grid-column
                         path="contamination_control"
                         header="Control"
-                ></vaadin-grid-sort-column>
-                <vaadin-grid-sort-column
+                ></vaadin-grid-column>
+                <vaadin-grid-column
                         path="hive_oid"
                         header="OID"
-                ></vaadin-grid-sort-column>
+                ></vaadin-grid-column>
             </vaadin-grid>
         `;
     }
-}
+};
+__decorate([
+    state()
+], GridItemDetails.prototype, "items", void 0);
+__decorate([
+    state()
+], GridItemDetails.prototype, "detailsOpenedItem", void 0);
+__decorate([
+    property({ type: String })
+], GridItemDetails.prototype, "data", null);
+GridItemDetails = __decorate([
+    customElement('grid-item-details')
+], GridItemDetails);
+export { GridItemDetails };
+//# sourceMappingURL=grid-item-details.js.map
