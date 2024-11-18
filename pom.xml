@@ -117,18 +117,12 @@
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
-                <version>24.5.3</version>
+                <version>${vaadin.version}</version>
                 <configuration>
-                    <nodeVersion>v20.17.0</nodeVersion> 
+                    <nodeDownload>false</nodeDownload> <!-- Prevents automatic download -->
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-frontend</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
+
         </plugins>
     </build>
 
