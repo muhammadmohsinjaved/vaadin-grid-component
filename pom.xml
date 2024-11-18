@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.muhammadmohsinjaved</groupId>
-    <artifactId>vaadin-grid-component</artifactId>
+    <artifactId>mohsin-new-vaadin-grid-component</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Vaadin Grid Component</name>
